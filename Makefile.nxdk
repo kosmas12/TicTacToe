@@ -1,0 +1,9 @@
+XBE_TITLE = TicTacToe
+GEN_XISO = $(XBE_TITLE).iso
+
+NXDK_DIR = /home/$(USER)/nxdk
+SRCS += main.c
+SRCS += include/graphics.c
+NXDK_SDL = 1
+
+include $(NXDK_DIR)/Makefile
