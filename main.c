@@ -28,25 +28,34 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 
 SDL_Event event;
 
-void Init() {
+int Init() {
+    screenInit();
+
     printf("Welcome to Tic Tac Toe! Copyright (C) 2021\n");
 
+    // On success this returns 0
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER) != 0) {
         printf("Couldn't initialize SDL! Reason: %s", SDL_GetError());
     }
-    gfxInit();
+
+    int ret = windowInit();
+
+    return ret;
 }
 
-void Quit() {
+void Quit(int exitcode) {
     SDL_DestroyWindow(window);
     SDL_Quit();
+    exit(exitcode);
 }
 
 int main() {
 
     int exitted = 0;
 
-    Init();
+    if(Init() == 1) {
+        Quit(1);
+    }
 
     DrawField();
 
@@ -60,7 +69,7 @@ int main() {
         }
     }
 
-    Quit();
+    Quit(0);
 
     return 0;
 }

@@ -22,23 +22,30 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #include <SDL.h>
 #endif
 
-void gfxInit() {
 
-    width = 640;
-    height = 480;
+// Set width and height, if on Xbox initialize video
+void screenInit() {
+
+    windowWidth = 640;
+    windowHeight = 480;
 
 #if defined(NXDK)
-    XVideoSetMode(width, height, 32, REFRESH_DEFAULT);
+    XVideoSetMode(windowWidth, windowHeight, 32, REFRESH_DEFAULT);
 #endif
 
-    window = SDL_CreateWindow("TicTacToe", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+}
+
+// Create a window
+int windowInit() {
+    window = SDL_CreateWindow("TicTacToe", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 
     if (!window) {
         printf("Couldn't create window! Reason: %s", SDL_GetError());
+        return 1;
     }
 
     windowSurface = SDL_GetWindowSurface(window);
-
+    return 0;
 }
 
 void DrawField() {
