@@ -27,6 +27,10 @@ void gfxInit() {
     width = 640;
     height = 480;
 
+#if defined(NXDK)
+    XVideoSetMode(width, height, 32, REFRESH_DEFAULT);
+#endif
+
     window = SDL_CreateWindow("TicTacToe", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 
     if (!window) {

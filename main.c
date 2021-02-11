@@ -29,9 +29,6 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 SDL_Event event;
 
 void Init() {
-#if defined(NXDK)
-    XVideoSetMode(width, height, 32, REFRESH_DEFAULT);
-#endif
     printf("Welcome to Tic Tac Toe! Copyright (C) 2021\n");
 
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER) != 0) {
