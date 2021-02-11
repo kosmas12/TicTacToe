@@ -22,6 +22,21 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #include <SDL.h>
 #endif
 
+void gfxInit() {
+
+    width = 640;
+    height = 480;
+
+    window = SDL_CreateWindow("TicTacToe", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+
+    if (!window) {
+        printf("Couldn't create window! Reason: %s", SDL_GetError());
+    }
+
+    windowSurface = SDL_GetWindowSurface(window);
+
+}
+
 void DrawField() {
     SDL_FillRect(windowSurface, NULL, SDL_MapRGB(windowSurface->format, 0, 0, 0));
     SDL_UpdateWindowSurface(window);

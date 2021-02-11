@@ -24,6 +24,10 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #include <SDL.h>
 #endif
 
+int width;
+int height;
+
+void gfxInit();
 void DrawField();
 
 SDL_Window *window;

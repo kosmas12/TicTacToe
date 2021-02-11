@@ -20,30 +20,24 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #include <SDL2/SDL.h>
 #else
 #include <SDL.h>
+#include <hal/video.h>
+#include <hal/debug.h>
 #define printf(...) debugPrint(__VA_ARGS__)
 #endif
 #include "include/graphics.h"
 
-int width;
-int height;
 SDL_Event event;
 
 void Init() {
 #if defined(NXDK)
-    XVideoSetMode(640, 480, 32, REFRESH_DEFAULT);
+    XVideoSetMode(width, height, 32, REFRESH_DEFAULT);
 #endif
     printf("Welcome to Tic Tac Toe! Copyright (C) 2021\n");
 
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER) != 0) {
         printf("Couldn't initialize SDL! Reason: %s", SDL_GetError());
     }
-
-    window = SDL_CreateWindow("TicTacToe", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
-
-    if (!window) {
-        printf("Couldn't create window! Reason: %s", SDL_GetError());
-    }
-    windowSurface = SDL_GetWindowSurface(window);
+    gfxInit();
 }
 
 void Quit() {
@@ -60,8 +54,7 @@ int main() {
     DrawField();
 
     while (!exitted) {
-        // We only update in case any events happen, so use WaitEvent for lower CPU usage
-        while (SDL_WaitEvent(&event)) {
+        while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
                     exitted = 1;
