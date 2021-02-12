@@ -20,18 +20,31 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 
 #if !defined(NXDK)
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #else
 #include <SDL.h>
+#include <SDL_ttf.h>
 #endif
 
 int windowWidth;
 int windowHeight;
+TTF_Font *smallFont;
+TTF_Font *bigFont;
+TTF_Font *ultraSmallFont;
+SDL_Surface *bgSurface;
+SDL_Window *window;
+SDL_Surface *windowSurface;
+Uint32 Rmask;
+Uint32 Gmask;
+Uint32 Bmask;
+Uint32 Amask;
+
 
 void screenInit();
 int windowInit();
+void ResetScreen();
+void InitStdText();
+void UpdateScore();
 void DrawField();
-
-SDL_Window *window;
-SDL_Surface *windowSurface;
 
 #endif //TICTACTOE_GRAPHICS_H

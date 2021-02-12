@@ -18,13 +18,16 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #include <stdio.h>
 #if !defined(NXDK)
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #else
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <hal/video.h>
 #include <hal/debug.h>
 #define printf(...) debugPrint(__VA_ARGS__)
 #endif
 #include "include/graphics.h"
+#include "include/common.h"
 
 SDL_Event event;
 
@@ -33,10 +36,18 @@ int Init() {
 
     printf("Welcome to Tic Tac Toe! Copyright (C) 2021\n");
 
-    // On success this returns 0
+    // On success these return 0
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER) != 0) {
-        printf("Couldn't initialize SDL! Reason: %s", SDL_GetError());
+        printf("Couldn't initialize SDL! Reason: %s\n", SDL_GetError());
     }
+
+    if(TTF_Init() != 0) {
+        printf("Couldn't initialize SDL_ttf! Reason: %s\n", SDL_GetError());
+    }
+
+    playerScore = 0;
+    aiScore = 0;
+    draws = 0;
 
     int ret = windowInit();
 
@@ -44,7 +55,11 @@ int Init() {
 }
 
 void Quit(int exitcode) {
+    TTF_CloseFont(ultraSmallFont);
+    TTF_CloseFont(smallFont);
+    TTF_CloseFont(bigFont);
     SDL_DestroyWindow(window);
+    TTF_Quit();
     SDL_Quit();
     exit(exitcode);
 }
@@ -58,6 +73,7 @@ int main() {
     }
 
     DrawField();
+    UpdateScore();
 
     while (!exitted) {
         while (SDL_PollEvent(&event)) {
