@@ -19,9 +19,11 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #if !defined(NXDK)
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
 #else
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_image.h>
 #include <hal/video.h>
 #include <hal/debug.h>
 #define printf(...) debugPrint(__VA_ARGS__)
@@ -43,6 +45,10 @@ int Init() {
 
     if(TTF_Init() != 0) {
         printf("Couldn't initialize SDL_ttf! Reason: %s\n", SDL_GetError());
+    }
+
+    if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG) {
+        printf("Couldn't initialize SDL_image! Reason: %s\n", SDL_GetError());
     }
 
     playerScore = 0;

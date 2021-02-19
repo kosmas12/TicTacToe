@@ -20,11 +20,13 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #if !defined(NXDK)
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
 #define RESOURCEDIR "../resources/"
 #else
 #include <hal/video.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_image.h>
 #define RESOURCEDIR "D:\\resources\\"
 #endif
 
@@ -71,6 +73,7 @@ int windowInit() {
 
     bgSurface = SDL_CreateRGBSurface(NULL, windowWidth, windowHeight, 32, Rmask, Gmask, Bmask, Amask);
 
+    loadImages();
     DrawField();
 
     return 0;
@@ -79,6 +82,31 @@ int windowInit() {
 void ResetScreen() {
     SDL_BlitSurface(bgSurface, NULL, windowSurface, NULL);
     SDL_UpdateWindowSurface(window);
+}
+
+int loadImages() {
+    xSurface = IMG_Load(RESOURCEDIR"X.png");
+    if (!xSurface) {
+        printf("Couldn't load the X image! Reason: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    oSurface = IMG_Load(RESOURCEDIR"O.png");
+    if (!oSurface) {
+        printf("Couldn't load the O image! Reason: %s\n", SDL_GetError());
+        return 1;
+    }
+    cursorSurface = IMG_Load(RESOURCEDIR"cursor.png");
+    if (!cursorSurface) {
+        printf("Couldn't load the cursor image! Reason: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    // Optimize the loaded images by using the window format
+    xSurface = SDL_ConvertSurface(xSurface, windowSurface->format, 0);
+    oSurface = SDL_ConvertSurface(oSurface, windowSurface->format, 0);
+    cursorSurface = SDL_ConvertSurface(cursorSurface, windowSurface->format, 0);
+
 }
 
 void InitStdText() {
@@ -117,6 +145,56 @@ void InitStdText() {
     SDL_BlitSurface(copyright, NULL, bgSurface, &copyrightPos);
     SDL_FreeSurface(copyright);
 
+    SDL_Rect controls1Pos = {windowWidth-170, 310, 100, 60};
+    SDL_Surface *controls1 = TTF_RenderText_Blended_Wrapped(ultraSmallFont, "D-Pad or arrow keys to move", textColor, 120);
+    SDL_BlitSurface(controls1, NULL, bgSurface, &controls1Pos);
+    SDL_FreeSurface(controls1);
+
+    SDL_Rect controls2Pos = {5, 320, 100, 60};
+    SDL_Surface *controls2 = TTF_RenderText_Blended_Wrapped(ultraSmallFont, "A or Enter to Confirm selection", textColor, 120);
+    SDL_BlitSurface(controls2, NULL, bgSurface, &controls2Pos);
+    SDL_FreeSurface(controls2);
+
+}
+
+// Calculates a number that can be used for x or y, used to calculate letter positions
+// Takes a field line width and a character width, in any order
+int calculatePos(int num, int width1, int width2) {
+    // If the number is out of bounds, return maximum/minimum possible
+    if (num > 2) {
+        return (2*width1)+(2*width2);
+    }
+    if (num < 0) {
+        return (0*width1)+(0*width2);
+    }
+
+    return (num*width1)+(num*width2);
+}
+
+void DrawLetter(int x, int y, char letter) {
+    int width = 32;
+    int height = 25;
+    int lineThickness = 5;
+    int letterWidth = 85;
+
+    SDL_Rect pos = {
+            calculatePos(x, lineThickness, letterWidth),
+            calculatePos(y, lineThickness, letterWidth),
+            windowWidth/width,
+            windowHeight/height
+    };
+
+    // Erase selection cursor
+    SDL_FillRect(windowSurface, &pos, SDL_MapRGB(windowSurface->format, 0, 0, 0));
+
+    // Draw letter
+    if(letter == 'O') {
+        SDL_BlitSurface(oSurface, NULL, windowSurface, &pos);
+    }
+    else {
+        SDL_BlitSurface(xSurface, NULL, windowSurface, &pos);
+    }
+
 }
 
 void UpdateScore() {
@@ -151,7 +229,7 @@ void DrawField() {
 
     SDL_FillRect(bgSurface, NULL, SDL_MapRGB(windowSurface->format, 0, 0, 0));
 
-    int verty = 5;
+    int verty = 40;
     int horx = 110;
     int hor1y = 130;
     int hor2y = 300;

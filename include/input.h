@@ -15,42 +15,33 @@ You should have received a copy of the GNU General Public License
 along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef TICTACTOE_GRAPHICS_H
-#define TICTACTOE_GRAPHICS_H
+#ifndef TICTACTOE_INPUT_H
+#define TICTACTOE_INPUT_H
 
 #if !defined(NXDK)
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 #else
 #include <SDL.h>
-#include <SDL_ttf.h>
 #endif
 
-int windowWidth;
-int windowHeight;
-TTF_Font *smallFont;
-TTF_Font *bigFont;
-TTF_Font *ultraSmallFont;
-SDL_Surface *bgSurface;
-SDL_Window *window;
-SDL_Surface *windowSurface;
-SDL_Surface *xSurface;
-SDL_Surface *oSurface;
-SDL_Surface *cursorSurface;
-Uint32 Rmask;
-Uint32 Gmask;
-Uint32 Bmask;
-Uint32 Amask;
+enum gameLogicButton {
+    BUTTON_MOVE_LEFT,
+    BUTTON_MOVE_RIGHT,
+    BUTTON_MOVE_UP,
+    BUTTON_MOVE_DOWN,
+    BUTTON_CONFIRM
+};
 
+typedef struct {
+    SDL_Keysym physicalKBButton;
+    SDL_GameControllerButton physicalGCButton;
+    enum gameLogicButton logicButton;
+}GameButton;
 
-void screenInit();
-int windowInit();
-void ResetScreen();
-int loadImages();
-void InitStdText();
-int calculatePos(int num, int width1, int width2);
-void DrawLetter(int x, int y, char letter);
-void UpdateScore();
-void DrawField();
+SDL_GameController *controller;
+int openedControllers;
 
-#endif //TICTACTOE_GRAPHICS_H
+void initController(SDL_GameController *controller, int *numOpenedControllers);
+void closeController(SDL_GameController *controller, int *numOpenedControllers);
+
+#endif //TICTACTOE_INPUT_H
