@@ -20,12 +20,12 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #if !defined(NXDK)
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#define RESOURCEDIR "../resources/"
+#define RESOURCEDIR "./"
 #else
 #include <hal/video.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
-#define RESOURCEDIR "D:\\resources\\"
+#define RESOURCEDIR "D:\\"
 #endif
 
 #define PLAYER_SCORE_TEXT "You: %d"
