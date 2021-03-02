@@ -30,3 +30,8 @@ else()
     # lots of warnings and all warnings as errors
     add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/resources/O.png ${CMAKE_CURRENT_BINARY_DIR}/O.png COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/resources/X.png ${CMAKE_CURRENT_BINARY_DIR}/X.png COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/resources/cursor.png ${CMAKE_CURRENT_BINARY_DIR}/cursor.png COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/resources/Serif.ttf ${CMAKE_CURRENT_BINARY_DIR}/Serif.ttf COPYONLY)
