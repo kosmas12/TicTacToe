@@ -5,8 +5,14 @@
 #ifndef TICTACTOE_COMMON_H
 #define TICTACTOE_COMMON_H
 
-int playerScore;
-int aiScore;
-int draws;
+#ifdef MAIN_INCLUDE
+#define EXTERN
+#else
+#define EXTERN extern
+#endif
+
+EXTERN int playerScore;
+EXTERN int aiScore;
+EXTERN int draws;
 
 #endif //TICTACTOE_COMMON_H
