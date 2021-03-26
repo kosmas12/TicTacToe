@@ -19,6 +19,6 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #define TICTACTOE_GAME_LOGIC_H
 
 char checkForThree(char a, char b, char c);
-char findWinner(char map[3][3]);
+char findWinner(char map[9]);
 
 #endif //TICTACTOE_GAME_LOGIC_H

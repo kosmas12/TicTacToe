@@ -2,101 +2,102 @@
 #include <assert.h>
 
 
-char gamemap[3][3] = {
-	{ ' ', ' ', ' '},
-	{ ' ', ' ', ' '},
-	{ ' ', ' ', ' '}
+char gamemap[9] = {
+	' ', ' ', ' ',
+	' ', ' ', ' ',
+	' ', ' ', ' '
+
 };
 
 // no winner
-char gamemap01[3][3] = {
-	{ 'x', ' ', 'o'},
-	{ 'o', ' ', 'x'},
-	{ 'x', ' ', 'o'}
+char gamemap01[9] = {
+	'x', ' ', 'o',
+	'o', ' ', 'x',
+	'x', ' ', 'o'
 };
 
 // no winner
-char gamemap02[3][3] = {
-	{ 'x', 'x', 'o'},
-	{ 'o', 'o', 'x'},
-	{ 'x', 'o', 'o'}
+char gamemap02[9] = {
+	'x', 'x', 'o',
+	'o', 'o', 'x',
+	'x', 'o', 'o'
 };
 
 // o - winner
-char gamemap03[3][3] = {
-	{ 'x', 'o', 'o'},
-	{ 'o', 'o', 'x'},
-	{ 'x', 'o', 'x'}
+char gamemap03[9] = {
+	'x', 'o', 'o',
+	'o', 'o', 'x',
+	'x', 'o', 'x'
 };
 
 // no winner
-char gamemap04[3][3] = {
-	{ 'x', ' ', 'o'},
-	{ 'x', ' ', 'o'},
-	{ 'o', ' ', 'x'}
+char gamemap04[9] = {
+	'x', ' ', 'o',
+	'x', ' ', 'o',
+	'o', ' ', 'x'
 };
 
 // no winner
-char gamemap05[3][3] = {
-	{ 'x', ' ', 'o'},
-	{ ' ', ' ', ' '},
-	{ 'o', ' ', 'x'}
+char gamemap05[9] = {
+	'x', ' ', 'o',
+	' ', ' ', ' ',
+	'o', ' ', 'x'
 };
 
 // x - winner
-char gamemap06[3][3] = {
-	{ 'x', ' ', 'o'},
-	{ ' ', 'x', ' '},
-	{ 'o', ' ', 'x'}
+char gamemap06[9] = {
+	'x', ' ', 'o',
+	' ', 'x', ' ',
+	'o', ' ', 'x'
 };
 
 // o - winner
-char gamemap07[3][3] = {
-	{ 'x', ' ', 'o'},
-	{ ' ', 'o', ' '},
-	{ 'o', ' ', 'x'}
+char gamemap07[9] = {
+	'x', ' ', 'o',
+	' ', 'o', ' ',
+	'o', ' ', 'x'
 };
 
 // o - winner
-char gamemap08[3][3] = {
-	{ 'o', ' ', ' '},
-	{ 'o', ' ', ' '},
-	{ 'o', ' ', ' '}
+char gamemap08[9] = {
+	'o', ' ', ' ',
+	'o', ' ', ' ',
+	'o', ' ', ' '
 };
 
 // o - winner
-char gamemap09[3][3] = {
-	{ ' ', 'o', ' '},
-	{ ' ', 'o', ' '},
-	{ ' ', 'o', ' '}
+char gamemap09[9] = {
+	' ', 'o', ' ',
+	' ', 'o', ' ',
+	' ', 'o', ' '
 };
 
 // o - winner
-char gamemap10[3][3] = {
-	{ ' ', ' ', 'o'},
-	{ ' ', ' ', 'o'},
-	{ ' ', ' ', 'o'}
+char gamemap10[9] = {
+	' ', ' ', 'o',
+	' ', ' ', 'o',
+	' ', ' ', 'o'
 };
 
 // o - winner
-char gamemap11[3][3] = {
-	{ 'o', 'o', 'o'},
-	{ ' ', ' ', ' '},
-	{ ' ', ' ', ' '}
+char gamemap11[9] = {
+	'o', 'o', 'o',
+	' ', ' ', ' ',
+	' ', ' ', ' '
 };
 
 // o - winner
-char gamemap12[3][3] = {
-	{ ' ', ' ', ' '},
-	{ 'o', 'o', 'o'},
-	{ ' ', ' ', ' '}
+char gamemap12[9] = {
+	' ', ' ', ' ',
+	'o', 'o', 'o',
+	' ', ' ', ' '
 };
 
 // o - winner
-char gamemap13[3][3] = {
-	{ ' ', ' ', ' '},
-	{ ' ', ' ', ' '},
-	{ 'o', 'o', 'o'}
+char gamemap13[9] = {
+	' ', ' ', ' ',
+	' ', ' ', ' ',
+	'o', 'o', 'o'
 };
 
 
