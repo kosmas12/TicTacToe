@@ -20,5 +20,6 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 
 char checkForThree(char a, char b, char c);
 char findWinner(char map[9]);
+int findNextWinner(char map[9], char player);
 
 #endif //TICTACTOE_GAME_LOGIC_H
