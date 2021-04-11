@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+#define MAIN_INCLUDE
 #include "graphics.h"
 #include "common.h"
 #if !defined(NXDK)
@@ -22,6 +23,7 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 #define RESOURCEDIR "../resources/"
+
 #else
 #include <hal/video.h>
 #include <SDL.h>
@@ -113,18 +115,27 @@ void InitStdText() {
     smallFont = TTF_OpenFont(RESOURCEDIR"Serif.ttf", 30);
     if (!smallFont) {
         printf("Couldn't load small font! Reason: %s\n", SDL_GetError());
+        TTF_Quit();
+        SDL_Quit();
         return;
     }
 
     bigFont = TTF_OpenFont(RESOURCEDIR"Serif.ttf", 58);
     if (!bigFont) {
         printf("Couldn't load big font! Reason: %s\n", SDL_GetError());
+        TTF_CloseFont(smallFont);
+        TTF_Quit();
+        SDL_Quit();
         return;
     }
 
     ultraSmallFont = TTF_OpenFont(RESOURCEDIR"Serif.ttf", 25);
     if (!bigFont) {
         printf("Couldn't load ultra small font! Reason: %s\n", SDL_GetError());
+        TTF_CloseFont(bigFont);
+        TTF_CloseFont(smallFont);
+        TTF_Quit();
+        SDL_Quit();
         return;
     }
 
