@@ -22,7 +22,7 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #include <SDL.h>
 #endif
 
-openedControllers = 0;
+int openedControllers = 0;
 
 void initController(SDL_GameController *controller, int *numOpenedControllers) {
     // Indices start at 0, so if we have opened 1 controller this will start in the second index
@@ -40,6 +40,24 @@ void initController(SDL_GameController *controller, int *numOpenedControllers) {
     }
 }
 
+void initButtonMap(GameButton buttonMap[]) {
+    buttonMap[0].physicalKBButton = SDLK_LEFT;
+    buttonMap[0].physicalGCButton = SDL_CONTROLLER_BUTTON_DPAD_LEFT;
+    buttonMap[0].logicButton = BUTTON_MOVE_LEFT;
+    buttonMap[1].physicalKBButton = SDLK_RIGHT;
+    buttonMap[1].physicalGCButton = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
+    buttonMap[1].logicButton = BUTTON_MOVE_RIGHT;
+    buttonMap[2].physicalKBButton = SDLK_UP;
+    buttonMap[2].physicalGCButton = SDL_CONTROLLER_BUTTON_DPAD_UP;
+    buttonMap[2].logicButton = BUTTON_MOVE_UP;
+    buttonMap[3].physicalKBButton = SDLK_DOWN;
+    buttonMap[3].physicalGCButton = SDL_CONTROLLER_BUTTON_DPAD_DOWN;
+    buttonMap[3].logicButton = BUTTON_MOVE_DOWN;
+    buttonMap[4].physicalKBButton = SDLK_SPACE;
+    buttonMap[4].physicalGCButton = SDL_CONTROLLER_BUTTON_A;
+    buttonMap[4].logicButton = BUTTON_CONFIRM;
+}
+
 void closeController(SDL_GameController *controller, int *numOpenedControllers) {
     if (controller) {
         SDL_GameControllerClose(controller);
@@ -49,4 +67,16 @@ void closeController(SDL_GameController *controller, int *numOpenedControllers) 
     else {
         printf("Error: Trying to close invalid controller!\n");
     }
+}
+
+enum gameLogicButton getCurrentlyPressedLogicButton(SDL_Event event, GameButton buttonMap[]) {
+    int indices = sizeof(*buttonMap)/sizeof(GameButton);
+
+    for (int i = 0; i < indices; i++) {
+        if (event.key.keysym.sym == buttonMap[i].physicalKBButton
+        || event.cbutton.button == buttonMap[i].physicalGCButton) {
+            return buttonMap[i].logicButton;
+        }
+    }
+    return BUTTON_NONE;
 }

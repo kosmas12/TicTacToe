@@ -30,6 +30,7 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #endif
 #include "include/graphics.h"
 #include "include/common.h"
+#include "include/input.h"
 
 SDL_Event event;
 
@@ -57,6 +58,8 @@ int Init() {
 
     int ret = windowInit();
 
+    initButtonMap(buttons);
+
     return ret;
 }
 
@@ -80,12 +83,16 @@ int main() {
 
     DrawField();
     UpdateScore();
+    enum gameLogicButton currentlyPressedButton;
 
     while (!exitted) {
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
                     exitted = 1;
+                    break;
+                default:
+                    currentlyPressedButton = getCurrentlyPressedLogicButton(event, buttons);
                     break;
             }
         }

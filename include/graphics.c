@@ -71,7 +71,7 @@ int windowInit() {
     Amask = 0xFF000000;
 #endif
 
-    bgSurface = SDL_CreateRGBSurface(NULL, windowWidth, windowHeight, 32, Rmask, Gmask, Bmask, Amask);
+    bgSurface = SDL_CreateRGBSurface(0, windowWidth, windowHeight, 32, Rmask, Gmask, Bmask, Amask);
 
     loadImages();
     DrawField();

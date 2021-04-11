@@ -29,19 +29,23 @@ enum gameLogicButton {
     BUTTON_MOVE_RIGHT,
     BUTTON_MOVE_UP,
     BUTTON_MOVE_DOWN,
-    BUTTON_CONFIRM
+    BUTTON_CONFIRM,
+    BUTTON_NONE
 };
 
 typedef struct {
-    SDL_Keysym physicalKBButton;
+    SDL_Keycode physicalKBButton;
     SDL_GameControllerButton physicalGCButton;
     enum gameLogicButton logicButton;
 }GameButton;
 
 SDL_GameController *controller;
 int openedControllers;
+GameButton buttons[5];
 
 void initController(SDL_GameController *controller, int *numOpenedControllers);
+void initButtonMap(GameButton buttonMap[]);
 void closeController(SDL_GameController *controller, int *numOpenedControllers);
+enum gameLogicButton getCurrentlyPressedLogicButton(SDL_Event event, GameButton buttonMap[]);
 
 #endif //TICTACTOE_INPUT_H
