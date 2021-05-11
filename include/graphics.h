@@ -26,30 +26,30 @@ along with TicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 #include <SDL_ttf.h>
 #endif
 
-#ifdef MAIN_INCLUDE
-#define EXTERN
-#else
-#define EXTERN extern
-#endif
-
-EXTERN int windowWidth;
-EXTERN int windowHeight;
-EXTERN TTF_Font *smallFont;
-EXTERN TTF_Font *bigFont;
-EXTERN TTF_Font *ultraSmallFont;
-EXTERN SDL_Surface *bgSurface;
-EXTERN SDL_Window *window;
-EXTERN SDL_Surface *windowSurface;
-EXTERN Uint32 Rmask;
-EXTERN Uint32 Gmask;
-EXTERN Uint32 Bmask;
-EXTERN Uint32 Amask;
+int windowWidth;
+int windowHeight;
+TTF_Font *smallFont;
+TTF_Font *bigFont;
+TTF_Font *ultraSmallFont;
+SDL_Surface *bgSurface;
+SDL_Window *window;
+SDL_Surface *windowSurface;
+SDL_Surface *xSurface;
+SDL_Surface *oSurface;
+SDL_Surface *cursorSurface;
+Uint32 Rmask;
+Uint32 Gmask;
+Uint32 Bmask;
+Uint32 Amask;
 
 
 void screenInit();
 int windowInit();
 void ResetScreen();
+int loadImages();
 void InitStdText();
+int calculatePos(int num, int width1, int width2);
+void DrawLetter(int x, int y, char letter);
 void UpdateScore();
 void DrawField();
 
