@@ -46,6 +46,6 @@ GameButton buttons[5];
 void initController(SDL_GameController *controller, int *numOpenedControllers);
 void initButtonMap(GameButton buttonMap[]);
 void closeController(SDL_GameController *controller, int *numOpenedControllers);
-enum gameLogicButton getCurrentlyPressedLogicButton(SDL_Event event, GameButton buttonMap[]);
+enum gameLogicButton getCurrentlyPressedLogicButton(SDL_Event event, GameButton buttonMap[], int size);
 
 #endif //TICTACTOE_INPUT_H

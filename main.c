@@ -91,8 +91,10 @@ int main() {
                 case SDL_QUIT:
                     exitted = 1;
                     break;
+                case SDL_KEYDOWN:
+                    currentlyPressedButton = getCurrentlyPressedLogicButton(event, buttons, 5);
+                    break;
                 default:
-                    currentlyPressedButton = getCurrentlyPressedLogicButton(event, buttons);
                     break;
             }
         }

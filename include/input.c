@@ -69,10 +69,9 @@ void closeController(SDL_GameController *controller, int *numOpenedControllers) 
     }
 }
 
-enum gameLogicButton getCurrentlyPressedLogicButton(SDL_Event event, GameButton buttonMap[]) {
-    int indices = sizeof(*buttonMap)/sizeof(GameButton);
+enum gameLogicButton getCurrentlyPressedLogicButton(SDL_Event event, GameButton buttonMap[], int size) {
 
-    for (int i = 0; i < indices; i++) {
+    for (int i = 0; i < size; i++) {
         if (event.key.keysym.sym == buttonMap[i].physicalKBButton
         || event.cbutton.button == buttonMap[i].physicalGCButton) {
             return buttonMap[i].logicButton;
