@@ -75,7 +75,8 @@ int windowInit() {
 
     bgSurface = SDL_CreateRGBSurface(0, windowWidth, windowHeight, 32, Rmask, Gmask, Bmask, Amask);
 
-    loadImages();
+    if(loadImages() != 0)
+        return 1;
     DrawField();
 
     return 0;
@@ -108,25 +109,25 @@ int loadImages() {
     xSurface = SDL_ConvertSurface(xSurface, windowSurface->format, 0);
     oSurface = SDL_ConvertSurface(oSurface, windowSurface->format, 0);
     cursorSurface = SDL_ConvertSurface(cursorSurface, windowSurface->format, 0);
-
+    return 0;
 }
 
-void InitStdText() {
+int InitStdText() {
     smallFont = TTF_OpenFont(RESOURCEDIR"Serif.ttf", 30);
     if (!smallFont) {
         printf("Couldn't load small font! Reason: %s\n", SDL_GetError());
         TTF_Quit();
         SDL_Quit();
-        return;
+        return 1;
     }
 
     bigFont = TTF_OpenFont(RESOURCEDIR"Serif.ttf", 58);
     if (!bigFont) {
         printf("Couldn't load big font! Reason: %s\n", SDL_GetError());
-        TTF_CloseFont(smallFont);
+        TTF_CloseFont(bigFont);
         TTF_Quit();
         SDL_Quit();
-        return;
+        return 1;
     }
 
     ultraSmallFont = TTF_OpenFont(RESOURCEDIR"Serif.ttf", 25);
@@ -136,7 +137,7 @@ void InitStdText() {
         TTF_CloseFont(smallFont);
         TTF_Quit();
         SDL_Quit();
-        return;
+        return 1;
     }
 
     SDL_Color textColor = {255, 255, 255, 255};
@@ -166,6 +167,7 @@ void InitStdText() {
     SDL_BlitSurface(controls2, NULL, bgSurface, &controls2Pos);
     SDL_FreeSurface(controls2);
 
+    return 0;
 }
 
 // Calculates a number that can be used for x or y, used to calculate letter positions
@@ -259,7 +261,8 @@ void DrawField() {
     SDL_FillRect(bgSurface, &hor1, SDL_MapRGB(bgSurface->format, 255, 255, 255));
     SDL_FillRect(bgSurface, &hor2, SDL_MapRGB(bgSurface->format, 255, 255, 255));
 
-    InitStdText();
+    if(InitStdText() != 0)
+        printf("Error in handling text drawing and TTF");
     ResetScreen();
 }
 
