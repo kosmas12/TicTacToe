@@ -47,7 +47,7 @@ void screenInit();
 int windowInit();
 void ResetScreen();
 int loadImages();
-void InitStdText();
+int InitStdText();
 int calculatePos(int num, int width1, int width2);
 void DrawLetter(int x, int y, char letter);
 void UpdateScore();

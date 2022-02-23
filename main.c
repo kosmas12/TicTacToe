@@ -42,14 +42,17 @@ int Init() {
     // On success these return 0
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER) != 0) {
         printf("Couldn't initialize SDL! Reason: %s\n", SDL_GetError());
+        return 1;
     }
 
     if(TTF_Init() != 0) {
         printf("Couldn't initialize SDL_ttf! Reason: %s\n", SDL_GetError());
+        return 1;
     }
 
     if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG) {
         printf("Couldn't initialize SDL_image! Reason: %s\n", SDL_GetError());
+        return 1;
     }
 
     playerScore = 0;
@@ -77,7 +80,7 @@ int main() {
 
     int exitted = 0;
 
-    if(Init() == 1) {
+    if(Init() != 0) {
         Quit(1);
     }
 
