@@ -124,7 +124,7 @@ int InitStdText() {
     bigFont = TTF_OpenFont(RESOURCEDIR"Serif.ttf", 58);
     if (!bigFont) {
         printf("Couldn't load big font! Reason: %s\n", SDL_GetError());
-        TTF_CloseFont(bigFont);
+        TTF_CloseFont(smallFont);
         TTF_Quit();
         SDL_Quit();
         return 1;
